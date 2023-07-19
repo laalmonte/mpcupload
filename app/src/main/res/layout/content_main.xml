@@ -61,7 +61,37 @@
                     android:layout_height="match_parent"/>
             </androidx.appcompat.widget.LinearLayoutCompat>
 
-            <include layout="@layout/content_photo" />
+            <include
+                android:id="@+id/includePhoto"
+                layout="@layout/content_photo" />
+
+            <include
+                android:id="@+id/includeComments"
+                layout="@layout/content_comments" />
+
+            <include
+                android:id="@+id/includeDetails"
+                layout="@layout/content_details" />
+
+            <include
+                android:id="@+id/includeLink"
+                layout="@layout/content_link" />
+
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnNext"
+                android:background="@drawable/button_green_light_green"
+                android:paddingTop="25dp"
+                android:paddingBottom="25dp"
+                android:elevation="3dp"
+                android:text="@string/next"
+                android:textStyle="bold"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
 
         </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.core.widget.NestedScrollView>
