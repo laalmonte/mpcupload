@@ -9,4 +9,19 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+
+    <string name="location">Location</string>
+    <string name="add_site">Add to site diary</string>
+    <string name="add_photo_site">Add Photos to site diary</string>
+    <string name="include_photo">Include in photo gallery</string>
+    <string name="add_photo">Add a photo</string>
+    <string name="comments">Comments</string>
+    <string name="details">Details</string>
+    <string name="select_date">Select Date</string>
+    <string name="select_area">Select Area</string>
+    <string name="task_category">Task Category</string>
+    <string name="tags">Tags</string>
+    <string name="link_existing_event">Link to exisiting event?</string>
+    <string name="select_event">Select an event</string>
+
 </resources>
