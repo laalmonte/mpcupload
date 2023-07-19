@@ -49,7 +49,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <androidx.appcompat.widget.AppCompatSpinner
-                android:id="@+id/spnTask"
+                android:id="@+id/spnEvent"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:spinnerMode="dropdown"
