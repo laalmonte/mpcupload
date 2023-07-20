@@ -23,5 +23,6 @@
     <string name="tags">Tags</string>
     <string name="link_existing_event">Link to exisiting event?</string>
     <string name="select_event">Select an event</string>
+    <string name="capture">Capture</string>
 
 </resources>

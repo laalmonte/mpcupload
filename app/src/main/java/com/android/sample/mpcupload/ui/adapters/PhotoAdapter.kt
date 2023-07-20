@@ -21,13 +21,13 @@ class PhotoAdapter(private var mList: List<Photo>,
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val photoObj = mList[position]
 
-        // for bitmap from camera
-//        holder.imagePhoto.setImageBitmap(photoObj.url)
+        // for bitmap from camera option
+        holder.imagePhoto.setImageBitmap(photoObj.url)
 
-        // for gallery
-        holder.imagePhoto.setImageURI(photoObj.url)
+        // for gallery option
+//        holder.imagePhoto.setImageURI(photoObj.url)
 
-        // for url from web
+        // for url from web option
 //        if (photoObj.url != ""){
 //            Picasso
 //                .get()
@@ -36,11 +36,13 @@ class PhotoAdapter(private var mList: List<Photo>,
 //                .into(holder.imagePhoto)
 //        }
 
+        // handle deleting
         holder.imageDelete.setOnClickListener {
             onItemClicked(photoObj)
         }
     }
 
+    // for updating recycler
     fun updateList(newList: List<Photo>){
         mList = newList
         notifyDataSetChanged()
