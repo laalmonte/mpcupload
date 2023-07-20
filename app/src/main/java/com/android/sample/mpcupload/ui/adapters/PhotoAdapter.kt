@@ -1,15 +1,15 @@
-package com.android.sample.mpcupload
+package com.android.sample.mpcupload.ui.adapters
 
-import android.graphics.Bitmap
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
-import com.squareup.picasso.Picasso
+import com.android.sample.mpcupload.R
+import com.android.sample.mpcupload.model.Photo
 
 class PhotoAdapter(private var mList: List<Photo>,
-                    private var onItemClicked: ((photoParam: Photo) -> Unit)
+                   private var onItemClicked: ((photoParam: Photo) -> Unit)
 ) : RecyclerView.Adapter<PhotoAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

@@ -1,4 +1,4 @@
-package com.android.sample.mpcupload
+package com.android.sample.mpcupload.ui.main
 
 import android.R.layout.simple_spinner_item
 import android.R.style.ThemeOverlay_Material_Dialog
@@ -6,7 +6,6 @@ import android.app.Activity
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
@@ -20,11 +19,18 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.android.sample.mpcupload.ui.adapters.PhotoAdapter
 import com.android.sample.mpcupload.databinding.ActivityMainBinding
+import com.android.sample.mpcupload.model.Photo
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
     private lateinit var binding: ActivityMainBinding
+    private lateinit var viewModel: MainViewModel
 
     lateinit var launcher: ActivityResultLauncher<Intent>
     lateinit var photoAdapter: PhotoAdapter
@@ -39,21 +45,24 @@ class MainActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
         binding = ActivityMainBinding.inflate(layoutInflater)
         binding.toolbar.title = "New Diary"
 
+        viewModel  = ViewModelProvider(this)[MainViewModel::class.java]
+
         setSupportActionBar(binding.toolbar)
         setContentView(binding.root)
         attachActions()
+        subscribeData()
 
         setupSpinnerTask()
         setupSpinnerArea()
         setupSpinnerEvents()
         setupLauncher()
 
-//        allPhotoList.add(Photo("https://cdn-icons-png.flaticon.com/512/3171/3171593.png"))
-//        allPhotoList.add(Photo("https://cdn-icons-png.flaticon.com/256/1289/1289331.png"))
-        setupPhotoAdapter(allPhotoList)
+        setupPhotoAdapter()
     }
 
     private fun attachActions(){
+        binding.includeMain.btnNext.setOnClickListener { viewModel.apiCall() }
+
         binding.ivCrossWhite.setOnClickListener { finish() }
 
         binding.includeMain.includePhoto.btnAddPhoto.setOnClickListener {
@@ -67,7 +76,17 @@ class MainActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
         }
     }
 
-    fun openGallery(){
+    private fun subscribeData(){
+        viewModel.isLoading.observe(this, Observer { loading ->
+            if (loading){
+                binding.includeMain.progLoading.visibility = View.VISIBLE
+            } else {
+                binding.includeMain.progLoading.visibility = View.GONE
+            }
+        })
+    }
+
+    private fun openGallery(){
         val galleryIntent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
         launcher.launch(galleryIntent)
     }
@@ -76,7 +95,6 @@ class MainActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
             Log.e("DIALOG", "result.resultCode ${result.resultCode}")
             if (result.resultCode == Activity.RESULT_OK) {
                 val intentResult = result.data!!.data
-
 
 //                val intentResult = result.data!!.extras!!.get("data")
 //                allPhotoList.add(Photo(intentResult as Bitmap))
@@ -117,11 +135,11 @@ class MainActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
         launcher.launch(cameraIntent)
     }
 
-    private fun setupPhotoAdapter(photoList: List<Photo>){
-        photoAdapter  = PhotoAdapter( photoList){ photoResult ->
+    private fun setupPhotoAdapter(){
+        photoAdapter  = PhotoAdapter( allPhotoList){ photoResult ->
             Log.e("Photo", "$photoResult")
             allPhotoList.remove(photoResult)
-            photoAdapter.updateList(photoList)
+            photoAdapter.updateList(allPhotoList)
 
         }
         binding.includeMain.includePhoto.rvPhotos.apply {

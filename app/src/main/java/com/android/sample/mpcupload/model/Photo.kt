@@ -1,4 +1,4 @@
-package com.android.sample.mpcupload
+package com.android.sample.mpcupload.model
 
 import android.graphics.Bitmap
 import android.net.Uri
