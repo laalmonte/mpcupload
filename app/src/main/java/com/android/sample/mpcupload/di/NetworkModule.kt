@@ -25,7 +25,6 @@ object NetworkModule {
 
     lateinit var retrofit: Retrofit
     val BASE_URL      = "https://reqres.in/"
-//    private var token = "QpwL5tke4Pnpja7X4"
     private var token = ""
 
     private val retrofitInstance: Retrofit
